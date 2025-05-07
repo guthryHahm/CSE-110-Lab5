@@ -1,4 +1,5 @@
 // expose.js
+const jsConfetti = new JSConfetti();
 
 window.addEventListener('DOMContentLoaded', init);
 
@@ -13,8 +14,8 @@ function init() {
     horn_image.src = "assets/images/" + event.target.value + ".svg";
     horn_audio.src = "assets/audio/" + event.target.value + ".mp3";
   });
-  ////////////////////////// Audio ///////////////////////////
 
+  ////////////////////////// Volume ///////////////////////////
   const volume_controls = expose.querySelector("#volume-controls");
   const volume = volume_controls.querySelector("#volume");
   const volume_img = volume_controls.querySelector("img");
@@ -31,5 +32,17 @@ function init() {
       level = 3;
     }
     volume_img.src = "assets/icons/volume-level-" + level + ".svg";
+    horn_audio.volume = volume_value /volume.max;
   })
+
+  ////////////////////////// Audio ///////////////////////////
+  const play_sound_button = expose.querySelector("button");
+  play_sound_button.addEventListener("click",(event) => {
+    if (horn_selection.value == "party-horn"){
+      jsConfetti.addConfetti();
+    }
+    horn_audio.play();
+  })
+
+
 }
